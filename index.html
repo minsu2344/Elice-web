@@ -32,18 +32,38 @@
   </head>
   
   <body>
+    <input type="button" onclick="console.log(this);" value="1">
+    <input type="button" onclick="console.log(this);" value="2">
     <input type="button" value="Night"
       onclick="
-        document.querySelector('body').style.backgroundColor = 'black'
-        document.querySelector('body').style.color = 'white'
+        if(this.value === 'Night'){
+            document.querySelector('body').style.backgroundColor = 'black';
+            document.querySelector('body').style.color = 'white';
+            this.value = 'Day';
+        }
+        else {
+          document.querySelector('body').style.backgroundColor = 'white';
+          document.querySelector('body').style.color = 'black';
+          this.value = 'Night';
+        }
+      "
+    >
+
+
+
+
+    <!-- <input type="button" value="Night"
+      onclick="
+        document.querySelector('body').style.backgroundColor = 'black';
+        document.querySelector('body').style.color = 'white';
       "
     >
     <input type="button" value="Day"
       onclick="
-        document.querySelector('body').style.backgroundColor = 'white'
-        document.querySelector('body').style.color = 'black'
+        document.querySelector('body').style.backgroundColor = 'white';
+        document.querySelector('body').style.color = 'black';
       "
-    >
+    > -->
     <h1><a href="index.html">WEB</a></h1>
     WWW is <strong>World <u>Wide</u> Web.</strong><br>
     <img src="https://images.unsplash.com/photo-1648977929065-a176fb0efb2a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
