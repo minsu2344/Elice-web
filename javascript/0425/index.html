@@ -111,7 +111,44 @@
         document.querySelector('article').innerHTML = content;
       }
 
-      function update() {}
+      function updateHandler(e) {
+        e.preventDefault();
+        const t = e.target.title.value;
+        const b = e.target.body.value;
+        fetch('http://localhost:3000/topics/'+selectedId, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({title: t, body:b})
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            nav();
+            selectedId = data.id;
+            read();
+          })
+      }
+
+      function update() {
+        fetch('http://localhost:3000/topics/' + selectedId)
+          .then(res => res.json())
+          .then(topic => {
+            
+            // Create 기능 복사
+            const content = `
+            <form onsubmit="updateHandler(event)">
+              <p><input type='text' name='title' placeholder='제목' value="${topic.title}"></p>
+              <p><textarea name='body' placeholder='본문'>${topic.body}</textarea></p>
+              <p><input type='submit' value='update'></p>
+            </form>
+            `;
+            document.querySelector('article').innerHTML = content;
+
+            control();
+          });
+      }
 
       function del() {}
       
@@ -119,7 +156,7 @@
         let contextUI = '';
         if(selectedId !== null) {
           contextUI = `
-          <li><a href="/update">Update</a></li>
+          <li><a href="/update" onclick="event.preventDefault(); update();">Update</a></li>
           <li><a href="/delete">Delete</a></li>
         `;}
         document.querySelector('#control').innerHTML = `
