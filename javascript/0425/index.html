@@ -150,14 +150,24 @@
           });
       }
 
-      function del() {}
+      function del() {
+        fetch('http://localhost:3000/topics/'+selectedId, {
+          method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+          nav();
+          selectedId = null; // selectedId 컨텐츠를 삭제했으니 null
+          welcome(); // 읽어올 게 없으니 read 없애고 welcome
+        })
+      }
       
       function control() {
         let contextUI = '';
         if(selectedId !== null) {
           contextUI = `
           <li><a href="/update" onclick="event.preventDefault(); update();">Update</a></li>
-          <li><a href="/delete">Delete</a></li>
+          <li><a href="/delete" onclick="event.preventDefault(); del();">Delete</a></li>
         `;}
         document.querySelector('#control').innerHTML = `
           <li><a href="/create" onclick='event.preventDefault(); create();'>Create</a></li>
