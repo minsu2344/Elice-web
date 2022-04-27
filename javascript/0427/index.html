@@ -69,7 +69,7 @@
       async function read() {
         // 3. 아이디와 일치하는 topics의 원소를 찾는다.
         const response = await fetch('http://localhost:3000/topics/' + selectedId);
-        const topic = response.json();
+        const topic = await response.json();
         // 4. 본문을 만든다.
         const content = `<h2>${topic.title}</h2>${topic.body}`
         // 5. 본문을 출력한다.
@@ -89,7 +89,7 @@
           },
           body: JSON.stringify({title: t, body: b})
         })
-        const data = response.json();
+        const data = await response.json();
         console.log(data);
         nav();
         selectedId = data.id;
@@ -119,7 +119,7 @@
           },
           body: JSON.stringify({title: t, body: b})
         })
-        const data = response.json();
+        const data = await response.json();
         console.log(data);
         nav();
         selectedId = data.id;
@@ -146,7 +146,7 @@
         const response = await fetch('http://localhost:3000/topics/'+selectedId, {
           method: 'DELETE',
         })
-        const data = response.json();
+        const data = await response.json();
         nav();
         selectedId = null; // selectedId 컨텐츠를 삭제했으니 null
         welcome(); // 읽어올 게 없으니 read 없애고 welcome
